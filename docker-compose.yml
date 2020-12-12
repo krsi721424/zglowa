@@ -23,7 +23,7 @@ services:
         - .:/application
       environment:
         - POSTGRES_USER=user
-        - POSTGRES_PASSWORD=admin123321@
+        - POSTGRES_PASSWORD=admin123321
         - POSTGRES_DB=zglowa
       ports:
         - "1238:5432"
