@@ -20,26 +20,26 @@ class User implements UserInterface
      * @ORM\Column(type="integer")
      * @ORM\GeneratedValue(strategy="AUTO")
      */
-    private int $id;
+    private ?int $id = null;
 
     /**
      * @ORM\Column(type="string", length=255, unique=true)
      * @Assert\NotBlank()
      * @Assert\Email()
      */
-    private string $email;
+    private ?string $email = null;
 
     /**
      * @ORM\Column(type="string", length=255, unique=true)
      * @Assert\NotBlank()
      */
-    private string $username;
+    private ?string $username = null;
 
     /**
      * @Assert\NotBlank()
      * @Assert\Length(max=4096)
      */
-    private string $plainPassword;
+    private ?string $plainPassword  = null;
 
     /**
      * The below length depends on the "algorithm" you use for encoding
@@ -47,21 +47,19 @@ class User implements UserInterface
      *
      * @ORM\Column(type="string", length=64)
      */
-    private string $password;
+    private ?string $password = null;
 
     /**
      * @ORM\Column(type="array")
      */
-    private array $roles;
+    private array $roles = [];
 
     public function __construct()
     {
-        $this->roles = array('ROLE_USER');
+        $this->roles = ['ROLE_USER'];
     }
 
-    // other properties and methods
-
-    public function getEmail(): string
+    public function getEmail(): ?string
     {
         return $this->email;
     }
@@ -73,7 +71,7 @@ class User implements UserInterface
         return $this;
     }
 
-    public function getUsername()
+    public function getUsername(): ?string
     {
         return $this->username;
     }
@@ -85,7 +83,7 @@ class User implements UserInterface
         return $this;
     }
 
-    public function getPlainPassword(): string
+    public function getPlainPassword(): ?string
     {
         return $this->plainPassword;
     }
@@ -97,7 +95,7 @@ class User implements UserInterface
         return $this;
     }
 
-    public function getPassword(): string
+    public function getPassword(): ?string
     {
         return $this->password;
     }
