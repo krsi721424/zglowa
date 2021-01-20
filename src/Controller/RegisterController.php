@@ -23,19 +23,17 @@ class RegisterController extends AbstractController
     public function register(Request $request, UserPasswordEncoderInterface $passwordEncoder)
     {
         $user = new User();
-        $form = $this->createForm(UserType::class);
-
+        $form = $this->createForm(UserType::class, $user);
         $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()) {
 
+        if ($form->isSubmitted() && $form->isValid()) {
             $password = $passwordEncoder->encodePassword($user, $user->getPlainPassword());
             $user->setPassword($password);
-
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($user);
             $entityManager->flush();
 
-            return $this->redirectToRoute('login');
+            return $this->redirectToRoute('app_login');
         }
 
         return $this->render(
