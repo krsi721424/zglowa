@@ -51,3 +51,6 @@ services:
         - ./phpdocker/php-fpm/php-ini-overrides.ini:/etc/php/7.4/fpm/conf.d/99-overrides.ini
       tty: true
 
+    mongo:
+      image: mongo
+      container_name: mongodb

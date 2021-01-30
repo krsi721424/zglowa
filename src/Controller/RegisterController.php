@@ -2,17 +2,26 @@
 
 namespace App\Controller;
 
+use App\Domain\Registration\Service;
 use App\Entity\User;
 use App\Form\UserType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Response as HttpResponse;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
 class RegisterController extends AbstractController
 {
+    private Service $service; // TODO: do it by Registration domain.
+
+    public function __construct(Service $service)
+    {
+        $this->service = $service;
+    }
+
     /**
      * @Route("/register", name="user-register")
      * @param Request $request
@@ -20,7 +29,7 @@ class RegisterController extends AbstractController
      *
      * @return RedirectResponse|HttpResponse
      */
-    public function register(Request $request, UserPasswordEncoderInterface $passwordEncoder)
+    public function register(Request $request, UserPasswordEncoderInterface $passwordEncoder): Response
     {
         $user = new User();
         $form = $this->createForm(UserType::class, $user);

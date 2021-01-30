@@ -16,7 +16,8 @@ class ProductFixtures extends Fixture implements DependentFixtureInterface
              ->setCategory('Motoryzacja')
              ->setSubcategory('Oleje')
              ->setName('Olej silnikowy')
-             ->setStatus('active');
+             ->setStatus('active')
+            ->setDescription('Testowy opis produktu.');
          $manager->persist($product);
 
         $manager->flush();
