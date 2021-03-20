@@ -1,12 +1,436 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        {% block stylesheets %}{% endblock %}
-    </head>
-    <body>
-        {% block body %}{% endblock %}
-        {% block javascripts %}{% endblock %}
-    </body>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css"
+          integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp"
+          crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css"
+          integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB"
+          crossorigin="anonymous">
+    <link rel="stylesheet" href="css/style.css">
+    <title>_Z Głową</title>
+</head>
+
+<body id="home" data-target="#main-nav">
+<!-- Navbar -->
+<nav class="navbar navbar-expand-md navbar-light  py-3" id="main-nav">
+    <div class="container">
+        <a href="index.html" class="navbar-brand">
+            <svg id="logo" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="232"
+                 height="36" viewBox="0 0 232 36">
+                <defs>
+                    <pattern id="pattern" preserveAspectRatio="none" width="100%" height="100%" viewBox="0 0 206 32">
+                        <image width="206" height="32"
+                               xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAM4AAAAgCAMAAABtj7cEAAAAnFBMVEUAAABXXH9XXH9XXH+SkpGSkpGSkpGSkpGSkpGSkpGSkpGSkpGSkpGNjpCSkpGSkpGSkpGSkpGSkpGSkpGSkpGQkJCSkpGSkpGSkpFXXH9XXH9XXH+Jio6SkpGSkpGSkpGSkpGSkpGSkpGSkpGSkpGSkpFXXH9XXH9XXH+SkpGSkpGSkpGSkpGSkpFXXH9XXH9XXH9XXH9XXH9XXH/UMy6zAAAANHRSTlMAX6AcMo/P9v/kqYBPEnegJW+4wBsElGM5kP8vCqQ/Vu/ZLMf8Q4Dg74iwRppcRda0vsCwwWKEewAABCJJREFUeAHdmIda4zoQhYcWW+4pLhe8YGMFcELn/d/tSrJyvlG8JayzX8m/BUaWy9EUFfpbzs4dLsjh8mrm+b4nZkEYxWhN0jTNaEQ8XwjdeRmuCOSqb0GWSLG7VqoLFXtTOpDTJP67drghRv3DZ8zRvlTWLe1z16CrNyfQKtuOROYrEvaQewKhP1D9Mzl553PK38uJpM9I0B4oa20F+4qABhqlOiewwI2TeHjc8bQvp/cVctEn4VW6mDV3v5UTG98sr8J+oXVJBGMCxw4PbMmwUr/OCOSesvUjNnQkHrQcljsrqd+YEfitnLmOsaHxXqjfkS9bZaTcAzWan1nqaKH36j9Bx+FCe+eBgBlWb0UHyulYoLzwz4rhBhLIDjiNj0ZK2j0ZHYVzpeax3vvogn4jZ50QqLUrVzvD458ldJLY+JKznYgUwpBhJW3U/y90DF6vFa/E8LgPxnLyUEpcJsQJXBWRZaO12fhqi13kKV2yJiBMpwQROJH6Uak5J8YKcQ64nDv9n8D1SFmdM9ZzXoLvbHwFpY08nfqt+7KGqPLROr1eP8XEqMZ5yeVInVklmkplLmAVyuq50tCKDNVTZa69iZKNEr6x9S2mydxcK86Is+UjNZZjKpGbyhunxF/xkd/YCTWqlXFpvz8hR39io3RLU8nflJp3cohQkbLQUO3JeeaRmDijHTo5IIZx0Uoyram0PbYEZrYw9NaT06ecp4tfyYn2FjlRowMNFQhyUi6HWYshCStT4YKhXG6cqKqlvmZftZw85SDUDpCTXxkrIjAONt3l2Qm9ynTpjNJuCDzhBvbSTlJa1zQ+lJpP2mON3FnPZgJyTNUal/ByJOfKyfOS6NlIjMz31ugOb/ZYsF7SJM6cxRqfSTz+PiunghzOixMlz04KZIO4YQZdmQyq0AHhuMWd8yOubkDtK1ZjOXTVtWM57oyxMP4AjZaqi/DtYLwYZ0bu+tNrNPq3YPLq5q2mEcJMf2M5de6u2VCNJYIeelEJG+PteDB6E40rvv7kiGOubkDKBir84/atMfkObbxuDR+vHCKssTACeR1xWR1zdcMzWF4eIAcVImXiZ3uJtdUybNFohvADP8xOaUA79uVouxxGLrTjqwPlRD7yJZK2N68qSaeDzEbWLSofwrpiQ1EQfX6LB3dz/QhunOKrWfZhEYiRHGEJduJnvqItwsL8ImIiN9V3o15LGJYVn2xuB89ef4uvg44+Up/hygFLuKBhrXI72tvhpKNlBqJ6QWyvJOt/Iifv5eFy6LJFo1iTQzFozJEpcAfWn87Dt/T1LR4OPGfL+q7xvaZdBv084+dsIGHqX4LW8z2xKWtyWaea3maZMUL6xbFdj/nhFMgaXTJOAMRam9OpcIk8Ogn0AqFLSjoFMNd1dArgbFicTvIspRTd/whNg25VtowOAAAAAElFTkSuQmCC"/>
+                    </pattern>
+                </defs>
+                <rect id="logo-2" data-name="logo" width="232" height="36" fill="url(#pattern)"/>
+            </svg>
+        </a>
+        <button class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse1">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        {% block user %}
+            {% if user is null %}
+                <div class="collapse navbar-collapse" id="navbarCollapse1">
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link" data-toggle="modal" data-target="#loginModal">Zaloguj się</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link" data-toggle="modal" data-target="#registerModal">Zarejestruj
+                                się</a>
+                        </li>
+                    </ul>
+                </div>
+            {% endif %}
+        {% endblock %}
+    </div>
+</nav>
+
+<!--User Navbar -->
+{% if user is defined and user %}
+    <nav class="user-navbar navbar navbar-expand-sm navbar-dark bg-dark  py-2">
+        <div class="container">
+            <button class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarCollapse">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item px-2">
+                        <a href="/moje-ogloszenia" class="nav-link">Moje Ogłoszenia</a>
+                    </li>
+                    <li class="nav-item px-2">
+                        <a href="#" class="nav-link " data-toggle="modal" data-target="#addItemModal"> <i
+                                    class="fas fa-plus"></i> Dodaj Ogłoszenie</a>
+                    </li>
+                    <li class="nav-item dropdown mr-3">
+                        <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">
+                            {# <i class="fas fa-user"></i> Witaj {{ user.name }} #}
+                        </a>
+                        <div class="dropdown-menu">
+                            <a href="#" class="dropdown-item">
+                                <i class="fas fa-user-circle"></i> Twój Profil
+                            </a>
+                            <a href="#" class="dropdown-item">
+                                <i class="fas fa-cog"></i> Ustawienia
+                            </a>
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/logout" class="nav-link">
+                            <i class="fas fa-user-times"></i> Wyloguj się
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+{% endif %}
+
+
+{# read and display just one flash message type #}
+{% for message in app.flashes('notice') %}
+    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+        {{ message }}
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+{% endfor %}
+
+{# read and display several types of flash messages #}
+{% for label, messages in app.flashes(['success', 'warning']) %}
+    {% for message in messages %}
+        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+            {{ message }}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    {% endfor %}
+{% endfor %}
+
+{# read and display all flash messages #}
+{% for label, messages in app.flashes %}
+    {% for message in messages %}
+        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+            {{ message }}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    {% endfor %}
+{% endfor %}
+
+
+<!-- SEARCH -->
+
+<section id="search" class="py-4  bg-light">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 ml-auto mr-auto">
+                <div class="input-group">
+                    <input type="text" class="form-control" placeholder="Czego szukasz?">
+                    <div class="input-group-append">
+                        <button class="btn btn-dark px-4"><i class="fas fa-search"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CATEGORIES -->
+
+<script>
+    function httpGet(theUrl) {
+        var xmlHttp = new XMLHttpRequest();
+        xmlHttp.open("GET", theUrl, false); // false for synchronous request
+        xmlHttp.send(null);
+        return xmlHttp.responseText;
+    }
+</script>
+
+{% block categories %}
+    <section id="categories" class="py-4 mb-4 bg-light">
+        <div class="container">
+            <div class="row py-4">
+                {% for category, attributes in categories %}
+                    <div class="col-md-3 ">
+                        <a href="#" class="btn btn-primary btn-block">
+                            {{ category }}
+                        </a>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+{% endblock %}
+
+<!-- ITEMS SECTION -->
+
+<section id="items" class="items py-3">
+    <div class="container">
+        <div class="row py-4 ">
+            <div class="col-md-6 m-auto text-center">
+                <h1>Najnowsze ogłoszenia</h1>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <div class="card-columns">
+                    <div class="card">
+                        <img src="https://source.unsplash.com/random/300x200" alt="" class="img-fluid card-img-top">
+                        <div class="card-body">
+                            <h4 class="card-title">Opony</h4>
+                            <h4>800 zł</h4>
+                            <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nulla
+                                facilis, sequi excepturi, quisquam, dignissimos
+                                molestiae dicta dolore dolores quas vel sunt placeat tempora expedita suscipit. Magni
+                                vel iusto mollitia
+                                exercitationem.
+                            </p>
+                            <small class="text-muted">Gdynia, Dzisiaj 16:15</small>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <img src="https://source.unsplash.com/random/301x200" alt="" class="img-fluid card-img-top">
+                        <div class="card-body">
+                            <h4 class="card-title">Opony</h4>
+                            <h4>800 zł</h4>
+                            <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nulla
+                                facilis, sequi excepturi, quisquam, dignissimos
+                                molestiae dicta dolore dolores quas vel sunt placeat tempora expedita suscipit. Magni
+                                vel iusto mollitia
+                                exercitationem.
+                            </p>
+                            <small class="text-muted">Gdynia, Dzisiaj 16:15</small>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <img src="https://source.unsplash.com/random/302x200" alt="" class="img-fluid card-img-top">
+                        <div class="card-body">
+                            <h4 class="card-title">Opony</h4>
+                            <h4>800 zł</h4>
+                            <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nulla
+                                facilis, sequi excepturi, quisquam, dignissimos
+                                molestiae dicta dolore dolores quas vel sunt placeat tempora expedita suscipit. Magni
+                                vel iusto mollitia
+                                exercitationem.
+                            </p>
+                            <small class="text-muted">Gdynia, Dzisiaj 16:15</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <div class="card-columns">
+                    <div class="card">
+                        <img src="https://source.unsplash.com/random/303x200" alt="" class="img-fluid card-img-top">
+                        <div class="card-body">
+                            <h4 class="card-title">Opony</h4>
+                            <h4>800 zł</h4>
+                            <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nulla
+                                facilis, sequi excepturi, quisquam, dignissimos
+                                molestiae dicta dolore dolores quas vel sunt placeat tempora expedita suscipit. Magni
+                                vel iusto mollitia
+                                exercitationem.
+                            </p>
+                            <small class="text-muted">Gdynia, Dzisiaj 16:15</small>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <img src="https://source.unsplash.com/random/304x200" alt="" class="img-fluid card-img-top">
+                        <div class="card-body">
+                            <h4 class="card-title">Opony</h4>
+                            <h4>800 zł</h4>
+                            <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nulla
+                                facilis, sequi excepturi, quisquam, dignissimos
+                                molestiae dicta dolore dolores quas vel sunt placeat tempora expedita suscipit. Magni
+                                vel iusto mollitia
+                                exercitationem.
+                            </p>
+                            <small class="text-muted">Gdynia, Dzisiaj 16:15</small>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <img src="https://source.unsplash.com/random/305x200" alt="" class="img-fluid card-img-top">
+                        <div class="card-body">
+                            <h4 class="card-title">Opony</h4>
+                            <h4>800 zł</h4>
+                            <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nulla
+                                facilis, sequi excepturi, quisquam, dignissimos
+                                molestiae dicta dolore dolores quas vel sunt placeat tempora expedita suscipit. Magni
+                                vel iusto mollitia
+                                exercitationem.
+                            </p>
+                            <small class="text-muted">Gdynia, Dzisiaj 16:15</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+</section>
+
+<!-- FOOTER -->
+
+<footer id="main-footer" class="main-footer text-white bg-dark mt-5 p-3">
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <p class="lead text-center">
+                    Copyright &copy;
+                    <span id="year"></span>
+                    _Z Głową
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+<!-- MODALS -->
+<!-- LOGIN MODAL -->
+
+<div class="modal fade" id="loginModal">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header bg-primary text-white">
+                <h5 class="modal-title">Zaloguj się</h5>
+                <button class="close" data-dismiss="modal">
+                    <span class="text-white">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form action="/login" method="post">
+                    <div class="form-group">
+                        <label for="name">email</label>
+                        <input type="text" class="form-control" name="email">
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <input type="password" class="form-control" name="password">
+                    </div>
+                    <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+                    <button type="submit" class="btn btn-primary btn-block py-2">Zaloguj się</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- REGISTER MODAL -->
+
+<div class="modal fade" id="registerModal">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header bg-warning text-white">
+                <h5 class="modal-title">Zarejestruj się</h5>
+                <button class="close" data-dismiss="modal">
+                    <span>&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form action="/register" method="post">
+                    <div class="form-group">
+                        <label for="name">Name</label>
+                        <input type="text" name="user[username]" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" name="user[email]" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <input type="password" name="user[plainPassword][first]" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="password2">Confirm Password</label>
+                        <input type="password" name="user[plainPassword][second]" class="form-control">
+                    </div>
+                    <input type="hidden" name="user[_token]" value="{{ csrf_token('register') }}">
+                    <button type="submit" class="btn btn-warning btn-block py-2 text-white">Zarejestruj się</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ADD ITEM MODAL -->
+
+<div class="modal fade" id="addItemModal">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header bg-success text-white">
+                <h5 class="modal-title">Dodaj Ogłoszenie</h5>
+                <button class="close" data-dismiss="modal">
+                    <span class="text-white">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-group">
+                        <label for="title">Nazwa</label>
+                        <input type="text" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="category">Kategoria</label>
+                        <select class="form-control">
+                            <option value="">Motoryzacja</option>
+                            <option value="">Dom i Ogród</option>
+                            <option value="">Elektronika</option>
+                            <option value="">Dla Dzieci</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="title">Podkategoria</label>
+                        <input type="text" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="image">Dodaj Zdjęcie</label>
+                        <div class="custom-file">
+                            <input type="file" class="custom-file-input" id="image">
+                            <label for="image" class="custom-file-label"></label>
+                        </div>
+                        <small class="form-text text-muted">Max Size 3mb</small>
+                    </div>
+                    <div class="form-group">
+                        <label for="body">Dodaj Opis</label>
+                        <textarea name="editor1" class="form-control"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="title">Lokalizacja</label>
+                        <input type="text" class="form-control">
+                    </div>
+                    <input type="submit" class="btn btn-success btn-block py-2" data-dismiss="modal"
+                           value="Dodaj Ogłoszenie">
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="http://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
+        integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"
+        integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T"
+        crossorigin="anonymous"></script>
+
+<script>
+    // Get the current year for the copyright
+    $('#year').text(new Date().getFullYear());
+</script>
+</body>
+
 </html>

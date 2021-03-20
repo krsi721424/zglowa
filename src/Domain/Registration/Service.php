@@ -8,11 +8,9 @@ use Doctrine\Common\Persistence\ObjectManager;
 
 class Service
 {
-    private Repository $repository;
     private ObjectManager $entityManager;
 
     public function createUser(): void
     {
-
     }
 }
