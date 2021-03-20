@@ -57,7 +57,7 @@ class User implements UserInterface
     private array $roles = [];
 
     /**
-     * @ORM\OneToMany(targetEntity=Product::class, mappedBy="user_id", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity=Announcement::class, mappedBy="user_id", orphanRemoval=true)
      */
     private $products;
 
@@ -125,19 +125,26 @@ class User implements UserInterface
         return $this->roles;
     }
 
+    public function addRole(string $role): array
+    {
+        $this->roles[] = $role;
+
+        return $this->roles;
+    }
+
     public function eraseCredentials(): void
     {
     }
 
     /**
-     * @return Collection|Product[]
+     * @return Collection|Announcement[]
      */
     public function getProducts(): Collection
     {
         return $this->products;
     }
 
-    public function addProduct(Product $product): self
+    public function addProduct(Announcement $product): self
     {
         if (!$this->products->contains($product)) {
             $this->products[] = $product;
@@ -147,7 +154,7 @@ class User implements UserInterface
         return $this;
     }
 
-    public function removeProduct(Product $product): self
+    public function removeProduct(Announcement $product): self
     {
         if ($this->products->removeElement($product)) {
             // set the owning side to null (unless already changed)
@@ -155,6 +162,18 @@ class User implements UserInterface
                 $product->setUser(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getId(): ?int
+    {
+        return $this->id;
+    }
+
+    public function setId(?int $id): self
+    {
+        $this->id = $id;
 
         return $this;
     }

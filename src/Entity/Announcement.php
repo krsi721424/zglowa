@@ -2,13 +2,14 @@
 
 namespace App\Entity;
 
-use App\Repository\ProductRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass=ProductRepository::class)
+ * @ORM\Entity(repositoryClass=Announcement::class)
  */
-class Product
+class Announcement
 {
     /**
      * @ORM\Id
@@ -21,6 +22,11 @@ class Product
      * @ORM\Column(type="string", length=255)
      */
     private $name;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $description;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -38,7 +44,7 @@ class Product
     private $created_at;
 
     /**
-     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="products")
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="announcements")
      * @ORM\JoinColumn(nullable=false)
      */
     private $user;
@@ -53,10 +59,16 @@ class Product
      */
     private $updated_at;
 
+    /**
+     * @ORM\OneToMany(targetEntity=AnnouncementImage::class, mappedBy="announcement", orphanRemoval=true)
+     */
+    private $images;
+
     public function __construct()
     {
         $this->created_at = new \DateTime('now');
         $this->updated_at = new \DateTime('now');
+        $this->images = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -144,6 +156,47 @@ class Product
     public function setUpdatedAt(\DateTimeInterface $updated_at): self
     {
         $this->updated_at = $updated_at;
+
+        return $this;
+    }
+
+    public function getDescription(): ?string
+    {
+        return $this->description;
+    }
+
+    public function setDescription(string $description): self
+    {
+        $this->description = $description;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|AnnouncementImage[]
+     */
+    public function getImages(): Collection
+    {
+        return $this->images;
+    }
+
+    public function addImageName(AnnouncementImage $imageName): self
+    {
+        if (!$this->images->contains($imageName)) {
+            $this->images[] = $imageName;
+            $imageName->setProduct($this);
+        }
+
+        return $this;
+    }
+
+    public function removeImageName(AnnouncementImage $imageName): self
+    {
+        if ($this->images->removeElement($imageName)) {
+            if ($imageName->getProduct() === $this) {
+                $imageName->setProduct(null);
+            }
+        }
 
         return $this;
     }
